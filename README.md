@@ -17,12 +17,15 @@ python3 locator.py 08.11.1997T12:00 01.02.1987T01:15
 ## Extras
 Possibility to look for a specific date upon requesting a day of the week, implemented example for Wednesday
 ````python
+#!/usr/bin/env python3
+import calendar
+
 # Example usage
 year = 2023
 month = 9
 
 this_month = calendar.monthcalendar(year, month)
-third_wednesday = find_third_wednesday(this_month)
+third_wednesday = find_nth_day(this_month, 3, 2) # calendar.WEDNESDAY can be used instead of the third argument for being verbose, calendar.WEDNESDAY's value is 2
 sunday_before_third_wednesday = find_previous_sunday(this_month, third_wednesday)
 
 print(
