@@ -19,14 +19,15 @@ Possibility to look for a specific date upon requesting a day of the week, imple
 ````python
 #!/usr/bin/env python3
 import calendar
+import locator
 
 # Example usage
 year = 2023
 month = 9
 
 this_month = calendar.monthcalendar(year, month)
-third_wednesday = find_nth_day(this_month, 3, 2) # calendar.WEDNESDAY can be used instead of the third argument for being verbose, calendar.WEDNESDAY's value is 2
-sunday_before_third_wednesday = find_previous_sunday(this_month, third_wednesday)
+third_wednesday = locator.find_nth_day(this_month, 3, 2) # calendar.WEDNESDAY can be used instead of the third argument for being verbose, calendar.WEDNESDAY's value is 2
+sunday_before_third_wednesday = locator.find_previous_sunday(this_month, third_wednesday)
 
 print(
 f"""The third Wednesday of {calendar.month_name[month]} {year} is on the {third_wednesday}th.
