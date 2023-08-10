@@ -111,6 +111,7 @@ def searcher(date_input: str, haystack: str) -> str:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Searching PSSE .raw files on or close to a specific time")
     parser.add_argument('timestamps', nargs="+", type=valid_date, metavar="date")
+    parser.add_argument('-c', '--copy', action="store_true")
     parser.add_argument('--conf', default="settings.cfg", help="Configuration file, defaults to settings.cfg from the script directory")
     args = parser.parse_args()
 
@@ -133,7 +134,9 @@ if __name__ == "__main__":
     # Find and filter all valid filenames
     # File format: PTI_SE_DDMMYYYY_HHMM.raw
     files_to_copy = list(filter(None, [searcher(i, haystack=configuration["source"]) for i in args.timestamps]))
-    # Copy files from source to destination
-    print(f"Files to copy: {files_to_copy}")
-    copied_files = [shutil.copy(str(Path(configuration["source"]) / file), str(dest)) for file in files_to_copy]
-    print(f"Files copied: {copied_files}")
+    print(f"Found matches: {files_to_copy}")
+
+    if args.copy:
+        # Copy files from source to destination
+        copied_files = [shutil.copy(str(Path(configuration["source"]) / file), str(dest)) for file in files_to_copy]
+        print(f"Files copied: {copied_files}")
