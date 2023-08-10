@@ -40,7 +40,7 @@ def find_nth_day(current_month: list[list[int, int]], week: int, day: int) -> in
 
 def find_previous_sunday(current_month: list[list[int, int]], day: int) -> int:
     """
-    Finds the day of the previous Sunday in the given month.
+    Finds the date of the previous Sunday in the given month.
 
     Args:
         current_month (list[list[int, int]]): A matrix representing the calendar for the given month.
