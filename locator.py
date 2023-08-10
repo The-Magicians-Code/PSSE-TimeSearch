@@ -9,9 +9,45 @@ from pathlib import Path
 from glob import glob
 import argparse
 import datetime
+import calendar
 import shutil
 
-def valid_date(timestamp):
+def find_third_wednesday(current_month: list[list[int, int]]) -> int:
+    """
+    Finds the day of the third Wednesday in the given month.
+
+    Args:
+        current_month (list): A matrix representing the calendar for the given month.
+            Each element in the matrix represents a day of the month.
+            The matrix is a list of lists, where each inner list represents a week.
+            Formula: current_month[week][day] to get the date of the day
+
+    Returns:
+        int: The day of the third Wednesday.
+
+    """
+    
+    return current_month[2][2] if current_month[0][2] != 0 else current_month[3][2]
+
+def find_previous_sunday(current_month: list[list[int, int]], wednesday: int) -> int:
+    """
+    Finds the day of the previous Sunday in the given month.
+
+    Args:
+        current_month (list): A matrix representing the calendar for the given month.
+            Each element in the matrix represents a day of the month.
+            The matrix is a list of lists, where each inner list represents a week.
+        wednesday (int): The day of the third Wednesday in the given month.
+
+    Returns:
+        int: The day of the previous Sunday.
+
+    """
+
+    week_for_sunday = [index for index, week in enumerate(current_month) if wednesday in week][0]
+    return this_month[week_for_sunday - 1][6]
+
+def valid_date(timestamp: str) -> str:
     """
     Validates a timestamp string in the format "dd.mm.YYYYTHH:MM".
 
@@ -35,7 +71,7 @@ def valid_date(timestamp):
     except ValueError as e:
         raise argparse.ArgumentTypeError(e)
 
-def nearest_value(all_possibilites: list[int], key: int) -> str:
+def nearest_value(all_possibilites: list[int, int], key: int) -> str:
     """
     Finds the value from a list of possibilities that is closest to a given key.
     
