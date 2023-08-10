@@ -14,3 +14,19 @@ Multiple dates are also accepted
 ````
 python3 locator.py 08.11.1997T12:00 01.02.1987T01:15
 ````
+## Extraas
+Possibility to look for a specific date upon requesting a day of the week, implemented example for Wednesday
+````python
+# Example usage
+year = 2023
+month = 9
+
+this_month = calendar.monthcalendar(year, month)
+third_wednesday = find_third_wednesday(this_month)
+sunday_before_third_wednesday = find_previous_sunday(this_month, third_wednesday)
+
+print(
+f"""The third Wednesday of {calendar.month_name[month]} {year} is on the {third_wednesday}th.
+The sunday before that is {sunday_before_third_wednesday}th."""
+)
+````
