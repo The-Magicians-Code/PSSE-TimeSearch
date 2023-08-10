@@ -12,39 +12,48 @@ import datetime
 import calendar
 import shutil
 
-def find_third_wednesday(current_month: list[list[int, int]]) -> int:
+def find_nth_day(current_month: list[list[int, int]], week: int, day: int) -> int:
     """
-    Finds the day of the third Wednesday in the given month.
+    Finds the nth occurrence of a specific day in the given month.
 
     Args:
-        current_month (list): A matrix representing the calendar for the given month.
+        current_month (list[list[int, int]]): A matrix representing the calendar for the given month.
             Each element in the matrix represents a day of the month.
             The matrix is a list of lists, where each inner list represents a week.
-            Formula: current_month[week][day] to get the date of the day
+        week (int): The week number (1 - 5) for the desired occurrence.
+        day (int): The day number (0 - 6, where Monday is 0 and Sunday is 6) for the desired day.
 
     Returns:
-        int: The day of the third Wednesday.
+        int: The day of the nth occurrence of the desired day.
+
+    Raises:
+        ValueError: If the week number is not between 1 and 5, or if the day number is not between 0 and 6.
 
     """
-    
-    return current_month[2][2] if current_month[0][2] != 0 else current_month[3][2]
 
-def find_previous_sunday(current_month: list[list[int, int]], wednesday: int) -> int:
+    if week > 5 or week < 1:
+        raise ValueError("Pick from weeks 1 - 5")
+    if day > 6 or day < 0:
+        raise ValueError("Pick from days 0 - 6 (Mon - Sun)")
+    
+    return current_month[week - 1][day] if current_month[0][day] != 0 else current_month[week][day]
+
+def find_previous_sunday(current_month: list[list[int, int]], day: int) -> int:
     """
     Finds the day of the previous Sunday in the given month.
 
     Args:
-        current_month (list): A matrix representing the calendar for the given month.
+        current_month (list[list[int, int]]): A matrix representing the calendar for the given month.
             Each element in the matrix represents a day of the month.
             The matrix is a list of lists, where each inner list represents a week.
-        wednesday (int): The day of the third Wednesday in the given month.
+        day (int): The numeric representation of the day as in date, 30th for example -> (30)
 
     Returns:
         int: The day of the previous Sunday.
 
     """
 
-    week_for_sunday = [index for index, week in enumerate(current_month) if wednesday in week][0]
+    week_for_sunday = [index for index, week in enumerate(current_month) if day in week][0]
     return this_month[week_for_sunday - 1][6]
 
 def valid_date(timestamp: str) -> str:
